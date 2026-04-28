@@ -15,7 +15,7 @@ public class Transaction {
     public LocalTime getTransactionTime() {return transactionTime;}
     public double getTransactionAmount() {return transactionAmount;}
     public String getDescription() {return description;}
-    public String getVendor() {return description;}
+    public String getVendor() {return vendor;}
     // setters
     public void setTransactionDate(LocalDate localDate) {this.transactionDate = transactionDate;}
     public void setTransactionTime(LocalTime localTime) {this.transactionTime = transactionTime;}
