@@ -1,7 +1,11 @@
 package com.pluralsight;
 
 public class LedgerView {
-    public static void main(String[] args) {
+    LedgerController userSession = new LedgerController();
 
+    public void loadFile() {
+        System.out.println("Enter the transaction file name (e.g., transactions.csv): ");
+        userSession.fileNameGrabber();
     }
 }
+
