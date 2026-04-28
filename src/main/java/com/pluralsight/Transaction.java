@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class Transaction {
+    private int id;
     private LocalDate transactionDate;
     private LocalTime transactionTime;
     private double transactionAmount;
@@ -11,12 +12,14 @@ public class Transaction {
     private String vendor;
 
     // getters
+    public int getId() {return id;}
     public LocalDate getLocalDate() {return transactionDate;}
     public LocalTime getTransactionTime() {return transactionTime;}
     public double getTransactionAmount() {return transactionAmount;}
     public String getDescription() {return description;}
     public String getVendor() {return vendor;}
     // setters
+    public void setId(int id) {this.id = id;}
     public void setTransactionDate(LocalDate localDate) {this.transactionDate = transactionDate;}
     public void setTransactionTime(LocalTime localTime) {this.transactionTime = transactionTime;}
     public void setTransactionAmount(double transactionAmount) {this.transactionAmount = transactionAmount;}
