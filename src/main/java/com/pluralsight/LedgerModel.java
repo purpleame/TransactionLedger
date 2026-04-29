@@ -31,14 +31,17 @@ public class LedgerModel {
             while ((print = bufferedReader.readLine()) != null) {
                 String[] lines = print.split("\\|");
 
-                transactionPasser("read",
-                        Integer.parseInt(lines[0]), // ID
+                int id = Integer.parseInt(lines[0]);
+
+                Transaction t = transactionPasser(
+                        id,                         // ID
                         lines[1],                   // Date
                         lines[2],                   // Time
                         Double.parseDouble(lines[3]),// Amount
                         lines[4],                   // Vendor
                         lines[5]                    // Description
                 );
+                savedTransactions.put(id, t);
             }
         } catch (IOException e) {
             System.out.println("An error occurred: " + e);
@@ -53,37 +56,30 @@ public class LedgerModel {
             bufferedWriter.write("ID|Date|Time|Amount|Vendor|Description");
             bufferedWriter.newLine();
 
-            transactionPasser("write",
-                        Integer.parseInt(lines[0]), // ID
-                        lines[1],                   // Date
-                        lines[2],                   // Time
-                        Double.parseDouble(lines[3]),// Amount
-                        lines[4],                   // Vendor
-                        lines[5]                    // Description
-                );
+            for (Transaction transaction : currentTransactions.values()) {
+                String lineToSave = String.format("%d|%s|%s|%.2f|%s|%s",
+                        transaction.getId(),
+                        transaction.getDate(),
+                        transaction.getTime(),
+                        transaction.getAmount(),
+                        transaction.getVendor(),
+                        transaction.getDescription());
+            }
         } catch (IOException e) {
             System.out.println("An error occurred: " + e);
         }
     }
 
-    public void transactionPasser(String readOrWrite, int id, String date,
-                                  String time, double amount, String vendor, String desc) {
+    public Transaction transactionPasser(int id, String date,
+                                         String time, double amount, String vendor, String desc) {
         Transaction t = new Transaction();
 
         t.setId(id);
-        t.setTransactionDate(LocalDate.parse(date));
-        t.setTransactionTime(LocalTime.parse(time));
-        t.setTransactionAmount(amount);
+        t.setDate(LocalDate.parse(date));
+        t.setTime(LocalTime.parse(time));
+        t.setAmount(amount);
         t.setVendor(vendor);
         t.setDescription(desc);
-
-        switch (readOrWrite) {
-            case "read":
-                savedTransactions.put(id, t);
-                break;
-            case "write":
-                savedTransactions.put(id, t);
-                break;
-        }
+        return t;
     }
 }
