@@ -22,9 +22,8 @@ public class LedgerModel {
 
     // methods
     public void readFile(String fileName) {
-        try {
-            FileReader fileReader = new FileReader("src\\main\\resources\\" + fileName);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader
+                ("src\\main\\resources\\" + fileName))) {
 
             String header = bufferedReader.readLine();
 
@@ -49,9 +48,8 @@ public class LedgerModel {
     }
 
     public void writeFile(String fileName) {
-        try {
-            FileWriter fileWriter = new FileWriter("src\\main\\resources\\" + fileName);
-            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter
+                ("src\\main\\resources\\" + fileName))) {
 
             bufferedWriter.write("ID|Date|Time|Amount|Vendor|Description");
             bufferedWriter.newLine();
@@ -63,7 +61,10 @@ public class LedgerModel {
                         transaction.getTime(),
                         transaction.getAmount(),
                         transaction.getVendor(),
-                        transaction.getDescription());
+                        transaction.getDescription()
+                );
+                bufferedWriter.write(lineToSave);
+                bufferedWriter.newLine();
             }
         } catch (IOException e) {
             System.out.println("An error occurred: " + e);
