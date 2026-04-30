@@ -9,5 +9,13 @@ public class LedgerView {
     public void transactionChoice(String text) {
         System.out.println("Input transaction " + text + ": ");
     }
+
+    public void transactionAddedSuccessfully(int id) {
+        System.out.println("Transaction " + id + " added successfully!");
+    }
+
+    public void stopOrContinue() {
+        System.out.println("");
+    }
 }
 

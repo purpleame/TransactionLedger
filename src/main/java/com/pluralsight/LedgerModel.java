@@ -10,7 +10,6 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class LedgerModel {
-    private String print;
     private String fileName;
     HashMap<Integer, Transaction> savedTransactions = new HashMap<>();
     HashMap<Integer, Transaction> currentTransactions = new HashMap<>();
@@ -27,6 +26,7 @@ public class LedgerModel {
 
             String header = bufferedReader.readLine();
 
+            String print;
             while ((print = bufferedReader.readLine()) != null) {
                 String[] lines = print.split("\\|");
 
