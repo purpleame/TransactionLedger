@@ -13,15 +13,15 @@ public class Transaction {
 
     // getters
     public int getId() {return id;}
-    public LocalDate getDate() {return transactionDate;}
-    public LocalTime getTime() {return transactionTime;}
-    public double getAmount() {return transactionAmount;}
-    public String getDescription() {return description;}
-    public String getVendor() {return vendor;}
+    public LocalDate getDate() {return this.transactionDate;}
+    public LocalTime getTime() {return this.transactionTime;}
+    public double getAmount() {return this.transactionAmount;}
+    public String getDescription() {return this.description;}
+    public String getVendor() {return this.vendor;}
     // setters
     public void setId(int id) {this.id = id;}
-    public void setDate(LocalDate localDate) {this.transactionDate = transactionDate;}
-    public void setTime(LocalTime localTime) {this.transactionTime = transactionTime;}
+    public void setDate(LocalDate localDate) {this.transactionDate = localDate;}
+    public void setTime(LocalTime localTime) {this.transactionTime = localTime;}
     public void setAmount(double transactionAmount) {this.transactionAmount = transactionAmount;}
     public void setDescription(String description) {this.description = description;}
     public void setVendor(String vendor) {this.vendor = vendor;}
