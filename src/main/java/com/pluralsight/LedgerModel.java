@@ -8,6 +8,7 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 public class LedgerModel {
     private String fileName;
@@ -29,6 +30,8 @@ public class LedgerModel {
             String print;
             while ((print = bufferedReader.readLine()) != null) {
                 String[] lines = print.split("\\|");
+
+                if (lines.length < 6) {continue;}
 
                 int id = Integer.parseInt(lines[0]);
 
@@ -82,5 +85,18 @@ public class LedgerModel {
         t.setVendor(vendor);
         t.setDescription(desc);
         return t;
+    }
+
+    public List<Transaction> transactionCombiner() {
+        List<Transaction> all = new java.util.ArrayList<>();
+        all.addAll(savedTransactions.values());
+        all.addAll(currentTransactions.values());
+
+        all.sort((t1, t2) -> {
+            int dateComp = t2.getDate().compareTo(t1.getDate());
+            if (dateComp != 0) return dateComp;
+            return t2.getTime().compareTo(t1.getTime());
+        });
+        return all;
     }
 }
