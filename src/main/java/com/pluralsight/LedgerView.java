@@ -3,18 +3,19 @@ package com.pluralsight;
 public class LedgerView {
 
     public void displayHomeScreen() {
-        System.out.println("Home Screen");
+        System.out.println("\nHome Screen");
         System.out.println("D) Add Deposit");
         System.out.println("P) Make Payment (Debit)");
+        System.out.println("F) Load File - Loads transaction file");
+        System.out.println("S) Save File - Saves transaction date opened into a file");
         System.out.println("L) Ledger");
         System.out.println("X) Exit");
         System.out.println("-------------------------------------------");
         System.out.print("Please select an option: ");
     }
 
-
     public void displayLedgerScreen() {
-        System.out.println("Welcome to your Ledger!");
+        System.out.println("\nWelcome to your Ledger!");
         System.out.println("A) All - Display all entries");
         System.out.println("D) Deposits - Display only deposits");
         System.out.println("P) Payments - Display only payments");
@@ -25,7 +26,7 @@ public class LedgerView {
     }
 
     public void displayReportsScreen() {
-        System.out.println("Reports Screen");
+        System.out.println("\nReports Screen");
         System.out.println("1) Month To Date");
         System.out.println("2) Previous Month");
         System.out.println("3) Year To Date");
@@ -47,13 +48,15 @@ public class LedgerView {
         System.out.println("Transaction " + id + " added successfully!");
     }
 
-    public void stopOrContinue() {
-        System.out.println("");
-    }
-
     public void invalidInput(String type) {
         System.out.println("Invalid " + type + " format. Please try again.");
 
     }
+
+    public void transactionHeaderPrint() {
+        System.out.println("\nDate       | Time     | Amount   | Vendor               | Description");
+        System.out.println("-------------------------------------------------------------------------");
+    }
+
 }
 
