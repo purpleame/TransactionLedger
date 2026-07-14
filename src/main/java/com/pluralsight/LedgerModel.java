@@ -8,7 +8,6 @@ import java.util.List;
 
 public class LedgerModel {
     private String fileName;
-    HashMap<Integer, Transaction> savedTransactions = new HashMap<>();
     HashMap<Integer, Transaction> currentTransactions = new HashMap<>();
 
     // getters
@@ -27,7 +26,7 @@ public class LedgerModel {
             while ((print = bufferedReader.readLine()) != null) {
                 String[] lines = print.split("\\|");
 
-                if (lines.length < 6) {continue;}
+                if (lines.length < 7) {continue;}
 
                 int id = Integer.parseInt(lines[0]);
 
@@ -37,9 +36,10 @@ public class LedgerModel {
                         lines[2],                   // Time
                         Double.parseDouble(lines[3]),// Amount
                         lines[4],                   // Vendor
-                        lines[5]                    // Description
+                        lines[5],                    // Description
+                        lines[6]                    // Category
                 );
-                savedTransactions.put(id, t);
+                currentTransactions.put(id, t);
             }
         } catch (IOException e) {
             System.out.println("An error occurred: " + e);
@@ -47,25 +47,26 @@ public class LedgerModel {
     }
 
     public void writeFile() {
-        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter
-                ("src\\main\\resources\\inventory.csv", true))) {
 
-            File file = new File("src\\main\\resources\\inventory.csv");
-            boolean isFileEmpty = !file.exists() || file.length() == 0;
+        File file = new File("src\\main\\resources\\inventory.csv");
+        boolean isFileEmpty = !file.exists() || file.length() == 0;
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter
+                (file, true))) {
 
             if (isFileEmpty) {
-                bufferedWriter.write("ID|Date|Time|Amount|Vendor|Description");
+                bufferedWriter.write("ID|Date|Time|Amount|Vendor|Description|Category");
                 bufferedWriter.newLine();
             }
 
             for (Transaction transaction : currentTransactions.values()) {
-                String lineToSave = String.format("%d|%s|%s|%.2f|%s|%s",
+                String lineToSave = String.format("%d|%s|%s|%.2f|%s|%s|%s",
                         transaction.getId(),
                         transaction.getDate(),
                         transaction.getTime(),
                         transaction.getAmount(),
                         transaction.getVendor(),
-                        transaction.getDescription()
+                        transaction.getDescription(),
+                        transaction.getCategory()
                 );
                 bufferedWriter.write(lineToSave);
                 bufferedWriter.newLine();
@@ -76,7 +77,7 @@ public class LedgerModel {
     }
 
     public Transaction transactionPasser(int id, String date,
-                                         String time, double amount, String vendor, String desc) {
+                                         String time, double amount, String vendor, String desc, String cat) {
         Transaction t = new Transaction();
 
         t.setId(id);
@@ -85,19 +86,37 @@ public class LedgerModel {
         t.setAmount(amount);
         t.setVendor(vendor);
         t.setDescription(desc);
+        t.setCategory(cat);
         return t;
     }
 
-    public List<Transaction> transactionCombiner() {
-        List<Transaction> all = new java.util.ArrayList<>();
-        all.addAll(savedTransactions.values());
-        all.addAll(currentTransactions.values());
+    public double seeTheBalance(String option){
+        double deposit = 0.0;
+        double payments = 0.0;
 
-        all.sort((t1, t2) -> {
-            int dateComp = t2.getDate().compareTo(t1.getDate());
-            if (dateComp != 0) return dateComp;
-            return t2.getTime().compareTo(t1.getTime());
-        });
-        return all;
+        for (Transaction transaction : currentTransactions.values()) {
+            if (transaction.getAmount() > 0) {
+                deposit += transaction.getAmount();
+            }
+
+            if (transaction.getAmount() < 0) {
+                payments += transaction.getAmount();
+            }
+        }
+
+        switch (option) {
+            case "deposit": return  deposit;
+            case "payments": return payments;
+            case "balance": return  payments + deposit;
+            default : return  0;
+        }
+    }
+
+    public void displayBalance(){
+        System.out.println(Colors.PINK_PURPLE + "==========BALANCE==========" + Colors.RESET);
+        System.out.printf(Colors.AQUA_BLUE + "Deposit: $%.2f" + Colors.RESET + "%n", seeTheBalance("deposit"));
+        System.out.printf(Colors.PINK_PURPLE +"Payments: $%.2f" + Colors.RESET + "%n",seeTheBalance("payments"));
+        System.out.printf(Colors.AQUA_BLUE +"Current Balance: $%.2f"+ Colors.RESET + "%n", seeTheBalance("balance"));
+
     }
 }

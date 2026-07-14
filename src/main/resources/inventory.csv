@@ -1,5 +1,51 @@
-ID|Date|Time|Amount|Vendor|Description
-763|2026-06-13|14:30|-50.00|Hot Topic|T-Shirt
-464|2026-07-13|14:49|-20.00|Pet Smart|Dog Food
-797|2026-07-13|15:23:54|34.00|work|
-612|2026-07-14|10:56:21|34.90|Work|Work
+ID|Date|Time|Amount|Vendor|Description|Category
+774|2026-06-21|03:53|-69.79|Amazon|Headphones|Shopping
+775|2026-07-11|21:28|-115.63|Amazon|Phone Case|Shopping
+776|2026-07-11|03:50|-92.78|Netflix|Monthly Subscription|Entertainment
+777|2026-06-23|10:54|-38.15|Spotify|Premium Subscription|Entertainment
+778|2026-06-30|22:45|-62.12|Starbucks|Coffee|Food/Dining
+779|2026-06-30|00:22|-15.58|Netflix|Monthly Subscription|Entertainment
+780|2026-06-23|23:14|-106.09|Shell Gas|Fuel|Transportation
+781|2026-06-20|14:57|-79.84|Amazon|Headphones|Shopping
+782|2026-06-28|02:15|-67.29|Uber|Ride Share|Transportation
+783|2026-07-08|18:22|-119.78|Shell Gas|Car Wash|Transportation
+784|2026-07-14|02:13|-64.07|Amazon|Headphones|Shopping
+785|2026-07-01|16:54|-14.29|Trader Joe's|Frozen Meals|Food/Dining
+786|2026-06-18|04:06|-95.43|Trader Joe's|Frozen Meals|Food/Dining
+787|2026-06-20|16:03|-31.53|Target|Groceries|Groceries & Household
+788|2026-06-28|06:21|-48.38|Starbucks|Latte|Food/Dining
+789|2026-06-16|11:54|-11.50|Spotify|Premium Subscription|Entertainment
+790|2026-06-26|08:55|-95.23|Best Buy|HDMI Cord|Electronics
+791|2026-06-28|14:33|-16.87|Starbucks|Pastry|Food/Dining
+792|2026-06-18|05:47|-97.09|Starbucks|Latte|Food/Dining
+793|2026-06-20|11:33|-45.15|Shell Gas|Car Wash|Transportation
+794|2026-07-01|17:46|-107.68|Amazon|Phone Case|Shopping
+795|2026-06-18|22:29|-89.38|Netflix|Monthly Subscription|Entertainment
+796|2026-06-26|13:52|-58.95|Walmart|Office Supplies|Shopping
+797|2026-06-25|12:28|-76.69|Amazon|Headphones|Shopping
+798|2026-06-27|03:08|-79.10|Spotify|Premium Subscription|Entertainment
+799|2026-06-19|06:58|-111.22|Target|Paper Towels|Groceries & Household
+800|2026-07-04|22:01|-22.46|Amazon|Phone Case|Shopping
+801|2026-06-29|09:16|-21.44|Spotify|Premium Subscription|Entertainment
+802|2026-06-18|11:03|-24.24|Uber|Ride Share|Transportation
+803|2026-07-12|03:34|-76.41|Best Buy|Batteries|Electronics
+804|2026-06-22|01:21|-94.54|Starbucks|Latte|Food/Dining
+805|2026-07-02|17:34|-69.61|Uber|Ride Share|Transportation
+806|2026-06-16|23:29|-33.84|Spotify|Premium Subscription|Entertainment
+807|2026-07-13|16:16|-119.47|Uber|Ride Share|Transportation
+808|2026-06-26|18:57|-58.78|Uber|Ride Share|Transportation
+809|2026-06-16|03:06|-53.24|Walmart|Socks|Shopping
+810|2026-06-23|19:09|-53.45|Amazon|Phone Case|Shopping
+811|2026-07-12|16:49|-14.38|Starbucks|Pastry|Food/Dining
+812|2026-06-14|17:55|-99.06|Netflix|Monthly Subscription|Entertainment
+813|2026-06-25|11:32|-107.58|Uber|Ride Share|Transportation
+814|2026-06-22|19:31|-21.10|Target|Groceries|Groceries & Household
+815|2026-07-03|02:59|-79.31|Shell Gas|Snacks|Transportation
+816|2026-07-11|05:31|-68.34|Best Buy|HDMI Cord|Electronics
+817|2026-06-27|15:45|-98.59|Trader Joe's|Groceries|Food/Dining
+818|2026-06-23|06:34|-55.08|Spotify|Premium Subscription|Entertainment
+819|2026-07-03|05:44|-39.83|Amazon|Phone Case|Shopping
+820|2026-07-05|12:25|-49.89|Amazon|Phone Case|Shopping
+821|2026-06-15|14:27|-8.51|Amazon|Phone Case|Shopping
+822|2026-07-04|23:10|-35.69|Netflix|Monthly Subscription|Entertainment
+823|2026-06-22|13:53|-82.17|Shell Gas|Snacks|Transportation

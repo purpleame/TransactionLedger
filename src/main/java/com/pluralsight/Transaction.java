@@ -10,6 +10,7 @@ public class Transaction {
     private double transactionAmount;
     private String description;
     private String vendor;
+    private String category;
 
     // getters
     public int getId() {return id;}
@@ -18,6 +19,7 @@ public class Transaction {
     public double getAmount() {return this.transactionAmount;}
     public String getDescription() {return this.description;}
     public String getVendor() {return this.vendor;}
+    public String getCategory(){return this.category;}
     // setters
     public void setId(int id) {this.id = id;}
     public void setDate(LocalDate localDate) {this.transactionDate = localDate;}
@@ -25,6 +27,7 @@ public class Transaction {
     public void setAmount(double transactionAmount) {this.transactionAmount = transactionAmount;}
     public void setDescription(String description) {this.description = description;}
     public void setVendor(String vendor) {this.vendor = vendor;}
+    public void setCategory(String category){this.category = category;}
 
 
 }

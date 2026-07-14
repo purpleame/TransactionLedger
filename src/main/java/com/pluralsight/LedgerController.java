@@ -1,7 +1,5 @@
 package com.pluralsight;
 
-import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Scanner;
 import java.util.Random;
 import java.util.InputMismatchException;
@@ -16,6 +14,7 @@ public class LedgerController {
     Scanner input = new Scanner(System.in);
 
     public void start() {
+        model.readFile();
         boolean running = true;
         while (running) {
             view.displayHomeScreen();
@@ -25,7 +24,6 @@ public class LedgerController {
                 case "D": userEntry("Deposit"); break;
                 case "P": userEntry("Payment"); break;
                 case "L": displayLedgerMenu(); break;
-                case "F": loadFile(); break;
                 case "S": saveFile(); break;
                 case "X": running = false; break;
                 default: System.out.println("Invalid option. Please try again.");
@@ -62,27 +60,25 @@ public class LedgerController {
                 case "3": runReport("Year To Date"); break;
                 case "4": runReport("Previous Year"); break;
                 case "5": searchByVendor(); break;
+                case "6": model.displayBalance(); break;
+                case "7": searchByCategory(); break;
                 case "0": inReports = false; break;
                 default: System.out.println("Invalid choice.");
             }
         }
     }
 
-    public void loadFile() {
-        model.readFile();
-        System.out.println("Data read from inventory.csv");
-    }
 
     public void saveFile() {
         model.writeFile();
-        System.out.println("Data saved to inventory.csv");
+        System.out.println(Colors.PINK_PURPLE +"Data saved to inventory.csv" + Colors.RESET);
     }
 
     public static int generateId() {
         return random.nextInt(900) + 100;
     }
 
-    public void userEntry(String type) {
+    public void userEntry(String typeToDisplay) {
         int id = generateId();
 
         String date = getValidDateTime("date (YYYY-MM-DD)");
@@ -92,7 +88,7 @@ public class LedgerController {
         view.promptFor("amount");
         double amount = getValidNumber();
 
-        if (type.equalsIgnoreCase("Payment")) {
+        if (typeToDisplay.equalsIgnoreCase("Payment")) {
             amount = -Math.abs(amount);
         } else {
             amount = Math.abs(amount);
@@ -104,8 +100,11 @@ public class LedgerController {
         view.promptFor("vendor");
         String vendor = input.nextLine();
 
+        view.promptFor("category");
+        String cat = input.nextLine();
+
         model.currentTransactions.put(id, model.transactionPasser(
-                id, date, time, amount, vendor, description));
+                id, date, time, amount, vendor, description, cat));
 
         view.transactionAddedSuccessfully(id);
     }
@@ -151,22 +150,22 @@ public class LedgerController {
     }
 
     private void showFilteredTransactions(String filter) {
-        List<Transaction> all = model.transactionCombiner();
         view.transactionHeaderPrint();
 
-        for (Transaction t : all) {
+        for (Transaction t : model.currentTransactions.values()) {
             boolean matchesFilter = false;
             if (filter.equals("All")) matchesFilter = true;
             else if (filter.equals("Deposit") && t.getAmount() > 0) matchesFilter = true;
             else if (filter.equals("Payment") && t.getAmount() < 0) matchesFilter = true;
 
             if (matchesFilter) {
-                System.out.printf("%s | %s | %8.2f | %-20s | %s\n",
+                System.out.printf("%s | %s | %8.2f | %-20s | %s | %s\n",
                         t.getDate(),
                         t.getTime(),
                         t.getAmount(),
                         t.getVendor(),
-                        t.getDescription()
+                        t.getDescription(),
+                        t.getCategory()
                 );
             }
         }
@@ -174,10 +173,10 @@ public class LedgerController {
 
     private void runReport(String reportType) {
         LocalDate now = LocalDate.now();
-        List<Transaction> all = model.transactionCombiner();
+
         view.transactionHeaderPrint();
 
-        for (Transaction t : all) {
+        for (Transaction t : model.currentTransactions.values()) {
             LocalDate date = t.getDate();
             boolean matches = false;
 
@@ -198,8 +197,8 @@ public class LedgerController {
             }
 
             if (matches) {
-                System.out.printf("%s | %s | %8.2f | %-20s | %s\n",
-                        t.getDate(), t.getTime(), t.getAmount(), t.getVendor(), t.getDescription());
+                System.out.printf("%s | %s | %8.2f | %-20s | %s | %s\n",
+                        t.getDate(), t.getTime(), t.getAmount(), t.getVendor(), t.getDescription(), t.getCategory());
             }
         }
     }
@@ -209,10 +208,23 @@ public class LedgerController {
         String search = input.nextLine().toLowerCase();
         view.transactionHeaderPrint();
 
-        for (Transaction t : model.transactionCombiner()) {
+        for (Transaction t : model.currentTransactions.values()) {
             if (t.getVendor().toLowerCase().contains(search)) {
-                System.out.printf("%s | %s | %8.2f | %-20s | %s\n",
-                        t.getDate(), t.getTime(), t.getAmount(), t.getVendor(), t.getDescription());
+                System.out.printf("%s | %s | %8.2f | %-20s | %s | %s\n",
+                        t.getDate(), t.getTime(), t.getAmount(), t.getVendor(), t.getDescription(), t.getCategory());
+            }
+        }
+    }
+
+    private void searchByCategory() {
+        view.promptFor("category");
+        String search = input.nextLine().toLowerCase();
+        view.transactionHeaderPrint();
+
+        for (Transaction t : model.currentTransactions.values()) {
+            if (t.getCategory().toLowerCase().contains(search)) {
+                System.out.printf("%s | %s | %8.2f | %-20s | %s | %s\n",
+                        t.getDate(), t.getTime(), t.getAmount(), t.getVendor(), t.getDescription(), t.getCategory());
             }
         }
     }
