@@ -1,5 +1,6 @@
 package com.pluralsight;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Random;
@@ -68,17 +69,13 @@ public class LedgerController {
     }
 
     public void loadFile() {
-        view.enterTransactionName();
-        String name = input.nextLine();
-        model.setFileName(name);
-        model.readFile(name);
+        model.readFile();
+        System.out.println("Data read from inventory.csv");
     }
 
     public void saveFile() {
-        view.enterTransactionName();
-        String name = input.nextLine();
-        model.writeFile(name);
-        System.out.println("Data saved to " + name);
+        model.writeFile();
+        System.out.println("Data saved to inventory.csv");
     }
 
     public static int generateId() {
@@ -130,7 +127,15 @@ public class LedgerController {
         while (true) {
             try {
                 view.promptFor(type);
-                String i = input.nextLine();
+                String i = input.nextLine().trim();
+
+                if (i.isEmpty()) {
+                    if (type.equalsIgnoreCase("date (YYYY-MM-DD)")) {
+                        return LocalDate.now().toString();
+                    } else {
+                        return LocalTime.now().withNano(0).toString();
+                    }
+                }
 
                 if (type.equalsIgnoreCase("date (YYYY-MM-DD)")) {
                     LocalDate.parse(i);
@@ -138,6 +143,7 @@ public class LedgerController {
                     LocalTime.parse(i);
                 }
                 return i;
+
             } catch (DateTimeParseException e) {
                 view.invalidInput(type);
             }

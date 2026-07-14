@@ -25,4 +25,6 @@ public class Transaction {
     public void setAmount(double transactionAmount) {this.transactionAmount = transactionAmount;}
     public void setDescription(String description) {this.description = description;}
     public void setVendor(String vendor) {this.vendor = vendor;}
+
+
 }

@@ -12,6 +12,7 @@ public class LedgerView {
         System.out.println("X) Exit");
         System.out.println("-------------------------------------------");
         System.out.print("Please select an option: ");
+
     }
 
     public void displayLedgerScreen() {

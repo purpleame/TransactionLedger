@@ -1,11 +1,7 @@
 package com.pluralsight;
 
+import java.io.*;
 import java.util.HashMap;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
@@ -21,9 +17,9 @@ public class LedgerModel {
     public void setFileName(String fileName) {this.fileName = fileName;}
 
     // methods
-    public void readFile(String fileName) {
+    public void readFile() {
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader
-                ("src\\main\\resources\\" + fileName))) {
+                ("src\\main\\resources\\inventory.csv"))) {
 
             String header = bufferedReader.readLine();
 
@@ -50,12 +46,17 @@ public class LedgerModel {
         }
     }
 
-    public void writeFile(String fileName) {
+    public void writeFile() {
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter
-                ("src\\main\\resources\\" + fileName))) {
+                ("src\\main\\resources\\inventory.csv", true))) {
 
-            bufferedWriter.write("ID|Date|Time|Amount|Vendor|Description");
-            bufferedWriter.newLine();
+            File file = new File("src\\main\\resources\\inventory.csv");
+            boolean isFileEmpty = !file.exists() || file.length() == 0;
+
+            if (isFileEmpty) {
+                bufferedWriter.write("ID|Date|Time|Amount|Vendor|Description");
+                bufferedWriter.newLine();
+            }
 
             for (Transaction transaction : currentTransactions.values()) {
                 String lineToSave = String.format("%d|%s|%s|%.2f|%s|%s",
